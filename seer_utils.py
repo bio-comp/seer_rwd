@@ -27,13 +27,13 @@ def get_all(url: str, header: dict, count: int=25) -> List:
     all_elements = []
     def get_total() -> int:
         params = {'count': '1'}
-        r = requests.get(base_url, headers=header, params=params)
+        r = requests.get(url, headers=header, params=params)
         return r.json()['total']
     nrecords = get_total()
     npages = ( nrecords + count - 1 ) // count
     n = 0
     for i in range(npages):
         params = {'count': count, 'offset': i * count}
-        r = requests.get(base_url, headers=header, params=params)
+        r = requests.get(url, headers=header, params=params)
         all_elements.extend(r.json()['results'])
     return all_elements
